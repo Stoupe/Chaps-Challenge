@@ -141,11 +141,14 @@ public class Main {
 	 */
 	public Main(Maze m, int l, boolean loadingFromSave) {
 
-		if (!loadingFromSave) {
+		if (loadingFromSave) {
+			maze = m;
+		}
+		else {
 			updateMaze(l);
 		}
 
-		init(m);
+		init(maze);
 		initKeys();
 	}
 
