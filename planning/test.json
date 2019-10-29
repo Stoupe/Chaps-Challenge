@@ -1,0 +1,25 @@
+[{
+    "levelNumber" : 1,
+    "levelId" : 1234,
+    "levelName" : "Custom Level",
+    "timeToComplete" : 120
+},
+[{
+    "x" : 0,
+    "y" : 0,
+    "tileType" : "Tile.Wall",
+    "assetName" : "wall.png",
+    "walkable" : true,
+    "killsPlayer" : true,
+    "//^last two should be in custom abstract Tile class" : true
+},
+{
+    "x" : 1,
+    "y" : 0,
+    "tileType" : "Tile.Wall",
+    "assetName" : "wall.png",
+    "walkable" : true,
+    "killsPlayer" : true,
+    "//^last two should be in custom abstract Tile class" : true
+}]
+]

@@ -1,0 +1,10 @@
+- generate level json from string for easy level creation?
+- save enemy ai/movement
+- save enemy current positions
+- look at chap's inventory
+- generic tiles?
+- trello
+- versions (releases)
+- export game for each version
+- testing
+- find/spot bugs
