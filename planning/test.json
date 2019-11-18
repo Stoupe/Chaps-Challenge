@@ -1,25 +1,101 @@
-[{
-    "levelNumber" : 1,
-    "levelId" : 1234,
-    "levelName" : "Custom Level",
-    "timeToComplete" : 120
-},
-[{
-    "x" : 0,
-    "y" : 0,
-    "tileType" : "Tile.Wall",
-    "assetName" : "wall.png",
-    "walkable" : true,
-    "killsPlayer" : true,
-    "//^last two should be in custom abstract Tile class" : true
-},
 {
-    "x" : 1,
-    "y" : 0,
-    "tileType" : "Tile.Wall",
-    "assetName" : "wall.png",
-    "walkable" : true,
-    "killsPlayer" : true,
-    "//^last two should be in custom abstract Tile class" : true
-}]
-]
+    "levelInfo" : {
+
+
+        "levelNumber" : 1,
+        "levelId" : 1234,
+        "levelName" : "Custom Level",
+        "levelDescription" : "A description of some sort",
+        "levelAuthor" : "asdf",
+        "timeToComplete" : 120,
+        "timeRemaining" : 120,
+
+
+
+
+        "chap" : {
+            "inventory" : [
+                {
+                    "slotNo" : 0,
+                    "isKey" : true,
+                    "item" : {
+                        "name" : "Blue Key",
+                        "id" : 0,
+                        "color" : "#0000ff"
+                    }
+                },
+                {
+                    "slotNo" : 1,
+                    "item" : {
+                        "name" : "Random Item",
+                        "id" : 0,
+                        "color" : "#0000ff"
+                    }
+                }
+            ]
+        },
+
+
+
+
+        "tiles" : [
+            {
+                "x" : 0,
+                "y" : 0,
+                "tileType" : "Tile.Wall",
+                "assetName" : "wall.png",
+                "background" : {
+
+                    "tileType" : "tileType.door",
+                    "tileInfo" : {
+                        "asset" : "ground.png",
+                        "id" : "0",
+                        ""
+                    }
+
+                    
+
+                },
+                "foreground" : {
+                    "isAccessible" : false
+                }
+
+            },
+            {
+                "x" : 1,
+                "y" : 0,
+                "tileType" : "Tile.Wall",
+                "assetName" : "wall.png",
+                "walkable" : true,
+                "killsPlayer" : true,
+                "//^last two should be in custom abstract Tile class" : true
+            }
+        ],
+
+
+
+
+
+        "enemies" : [
+            {
+                "id" : 0,
+                "x" : 2,
+                "y" : 5,
+                "path" : "UULLDDRR",
+                "type[?]" : "Crab",
+                "asset[?]" : "crab.png",
+                "className[?]" : "Enemy_Crab"
+            },
+            {
+                "id" : 1,
+                "x" : 5,
+                "y" : 4,
+                "path" : "UULLDDRR",
+                "type[?]" : "Crab",
+                "asset[?]" : "crab.png",
+                "className[?]" : "Enemy_Crab"
+            }
+        ]
+        
+    }
+}
