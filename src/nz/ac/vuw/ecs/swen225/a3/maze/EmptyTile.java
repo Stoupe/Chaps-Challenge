@@ -2,17 +2,20 @@ package nz.ac.vuw.ecs.swen225.a3.maze;
 
 import java.awt.*;
 
-public class WallTile extends GenericTile {
+//TODO: Rename FloorTile**
 
-    public WallTile(int x, int y) {
+public class EmptyTile extends GenericTile {
+
+    public EmptyTile(int x, int y) {
         super(x,y);
         setIcon("Empty");
-        setWalkable(false);
+        setWalkable(true);
         setKillsPlayer(false);
     }
 
     /**
-     * Wall can't move
+     * Floor tile can't move
+     *
      * @param point
      * @return
      */
@@ -23,7 +26,6 @@ public class WallTile extends GenericTile {
 
     @Override
     public String toString() {
-        return "Wall Tile";
+        return "Empty Tile";
     }
-
 }
