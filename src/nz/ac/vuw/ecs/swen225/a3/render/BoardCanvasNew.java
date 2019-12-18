@@ -2,9 +2,7 @@ package nz.ac.vuw.ecs.swen225.a3.render;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.GenericTile;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
-import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,13 +12,13 @@ import java.io.IOException;
  * this class is a custom canvas, this is where the tiles will be displayed and the game will take place.
  * @author Joshua Harwood----300439084
  */
-public class BoardCanvas extends Canvas {
+public class BoardCanvasNew extends Canvas {
 
 	private static final long serialVersionUID = 1L;
-	private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
+	private int viewWindow = 5; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
     private GenericTile[][] tiles; //the tile array to be drawn
     private int cols, rows;
-    private double padding = 0.05; //the size of the tile that you want arround the outside (if 0.5 then a gap of half a tile will be left (all sides so 1 in total))
+    private double padding = 0.05; //the size of the tile that you want around the outside (if 0.5 then a gap of half a tile will be left (all sides so 1 in total))
 
     private Maze maze;
 
@@ -28,7 +26,7 @@ public class BoardCanvas extends Canvas {
      * constructor
      * @param maze - the maze containing the tiles array
      */
-    public BoardCanvas(Maze maze) {
+    public BoardCanvasNew(Maze maze) {
     	this.maze = maze;
 
         this.cols = maze.getBoard()[0].length;
@@ -57,7 +55,7 @@ public class BoardCanvas extends Canvas {
         tileSize = Math.min(scaledSizeH, scaledSizeW); //get the smallest of the 2 (so we dont draw off the edge)
         tileSize -= (int) (tileSize*padding);
 
-        view = adjustView(viewWindow);
+//        view = adjustView(viewWindow);
 
         this.setSize(tileSize * viewWindow, tileSize * viewWindow); //set the size
 
@@ -66,6 +64,7 @@ public class BoardCanvas extends Canvas {
         Graphics2D imgG = image.createGraphics();
         imgG.setBackground(new Color(210,180,140));
         //go through each of the tiles and draw them
+        view = tiles;
         for (int i = 0; i < view[0].length; i++) {
             for (int j = 0; j < view.length; j++) {
 
@@ -83,6 +82,17 @@ public class BoardCanvas extends Canvas {
         this.getGraphics().drawImage(image, 0, 0, this);
         imgG.dispose();
     }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * TODO edited

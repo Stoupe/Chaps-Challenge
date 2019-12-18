@@ -18,7 +18,7 @@ public class Maze implements Runnable {
 	/**
 	 * The board of tiles.
 	 */
-	private Tile[][] board; //board[y][x]
+	private GenericTile[][] board; //board[y][x]
 	/**
 	 * The GUI this maze is drawn on.
 	 */
@@ -99,7 +99,7 @@ public class Maze implements Runnable {
 	 * @param level The level of this maze
 	 */
 	public Maze(int width, int height, int level) {
-		board = new Tile[height][width];
+		board = new GenericTile[height][width];
 		this.level = level;
 	}
 
@@ -109,44 +109,44 @@ public class Maze implements Runnable {
 	 * 		False if time ran out or maze is not current
 	 */
 	public boolean takeEnemyTurn() {
-		Tile newBehind;
-		char nextMove;
-		int x, y, newX, newY;
-		while(paused)
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-		for(Enemy enemy : enemies) {
-			x = enemy.getX();
-			y = enemy.getY();
-			newX = x;
-			newY = y;
-			nextMove = enemy.getNextMove();
-			if(nextMove == 'L')
-				newX--;
-			else if(nextMove == 'R')
-				newX++;
-			else if(nextMove == 'U')
-				newY--;
-			else if(nextMove == 'D')
-				newY++;
-			if(newY != y || newX != x) {
-			newBehind = board[newY][newX];
-			if(newBehind instanceof Chap)
-				endGame();
-			board[newY][newX] = enemy;
-			board[y][x] = enemy.getTileBehindEnemy();
-			enemy.setTileBehindEnemy(newBehind);
-			enemy.setX(newX);
-			enemy.setY(newY);
-			}
-		}
-		if(getTimeLeft() <= 0)
-			endGame();
-		if(!mazeIsCurrent)
-			return false;
+//		GenericTile newBehind;
+//		char nextMove;
+//		int x, y, newX, newY;
+//		while(paused)
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e1) {
+//				e1.printStackTrace();
+//			}
+//		for(Enemy enemy : enemies) {
+//			x = enemy.getX();
+//			y = enemy.getY();
+//			newX = x;
+//			newY = y;
+//			nextMove = enemy.getNextMove();
+//			if(nextMove == 'L')
+//				newX--;
+//			else if(nextMove == 'R')
+//				newX++;
+//			else if(nextMove == 'U')
+//				newY--;
+//			else if(nextMove == 'D')
+//				newY++;
+//			if(newY != y || newX != x) {
+//			newBehind = board[newY][newX];
+//			if(newBehind instanceof Chap)
+//				endGame();
+//			board[newY][newX] = enemy;
+//			board[y][x] = enemy.getTileBehindEnemy();
+//			enemy.setTileBehindEnemy(newBehind);
+//			enemy.setX(newX);
+//			enemy.setY(newY);
+//			}
+//		}
+//		if(getTimeLeft() <= 0)
+//			endGame();
+//		if(!mazeIsCurrent)
+//			return false;
 		return true;
 	}
 
@@ -198,25 +198,35 @@ public class Maze implements Runnable {
 		int height = Integer.parseInt((String.valueOf(mapAsChar[0])).concat(String.valueOf(mapAsChar[1])));
 		int width = Integer.parseInt((String.valueOf(mapAsChar[2])).concat(String.valueOf(mapAsChar[3])));
 
-		this.board = new Tile[height][width];
+		this.board = new GenericTile[height][width];
 		int x = 0, y = 0;
 		//fill the board
+		//TODO 4??
 		for(int i = 4; i < mapAsChar.length; i++) {
 			//for Chap
-			if(lettersToTiles.get(mapAsChar[i]) == TileType.Chap) {
-				chap = new Chap(x, y);
-				this.board[y][x] = chap;
-				behindChap = new Tile(TileType.Empty, x, y);
+//			if(lettersToTiles.get(mapAsChar[i]) == TileType.Chap) {
+//				chap = new Chap(x, y);
+//				this.board[y][x] = chap;
+//				behindChap = new Tile(TileType.Empty, x, y);
 				//for enemy
-			} else if(lettersToTiles.get(mapAsChar[i]) == TileType.Enemy) {
-				enemies.add(new Enemy(x, y));
-				this.board[y][x] = enemies.get(enemies.size() -1);
-				enemies.get(enemies.size() -1).setTileBehindEnemy(new Tile(TileType.Empty, x, y));;
-			} else {
-				this.board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
-				if(this.board[y][x].type == TileType.Treasure)
-					treasureLeft++;
-			}
+//			} else if(lettersToTiles.get(mapAsChar[i]) == TileType.Enemy) {
+//				enemies.add(new Enemy(x, y));
+//				this.board[y][x] = enemies.get(enemies.size() -1);
+//				enemies.get(enemies.size() -1).setTileBehindEnemy(new Tile(TileType.Empty, x, y));;
+//			} else {
+
+
+				TileType type = lettersToTiles.get(mapAsChar[i]);
+				this.board[y][x] = GenericTile.getTileSubclass(type, x, y);
+
+
+
+//				if(this.board[y][x].type == TileType.Treasure)
+//					treasureLeft++;
+
+//			}
+
+
 			x++;
 			if(x == width) {
 				x = 0;
@@ -251,62 +261,62 @@ public class Maze implements Runnable {
 	 */
 	public Trinary moveChap(String dir) {
 
-		int x = chap.getX();
-		int y = chap.getY();
-
-		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
-		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
-
-		//no move is being made
-		if(x == chap.getX() && y == chap.getY())
-			return Trinary.FALSE;
-
-		//Chap cannot move to the specified tile
-		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
-			return Trinary.FALSE;
-
-		if(board[y][x] instanceof Enemy)
-			endGame();
-
-		if(board[y][x].type == TileType.Treasure)
-			treasureLeft--;
-		else if(board[y][x].type == TileType.Key1)
-			chap.addKey(TileType.Key1);
-		else if(board[y][x].type == TileType.Key2)
-			chap.addKey(TileType.Key2);
-		else if(board[y][x].type == TileType.Key3)
-			chap.addKey(TileType.Key3);
-		else if(board[y][x].type == TileType.Key4)
-			chap.addKey(TileType.Key4);
-		else if(board[y][x].type == TileType.Door1)
-			chap.removeKey(TileType.Key1);
-		else if(board[y][x].type == TileType.Door2)
-			chap.removeKey(TileType.Key2);
-		else if(board[y][x].type == TileType.Door3)
-			chap.removeKey(TileType.Key3);
-		else if(board[y][x].type == TileType.Door4)
-			chap.removeKey(TileType.Key4);
-		else if(board[y][x].type == TileType.Info)
-			helpAlert(true);
-
-		//remove Chap from the board
-		board[chap.getY()][chap.getX()] = behindChap;
-
-		if(board[y][x].type == TileType.Exit)
-			return Trinary.DONE;
-
-		//update the tile behind Chap
-		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)
-			behindChap = board[y][x];
-		else if(board[y][x].type == TileType.ExitLock)
-			behindChap = new Tile(TileType.ExitUnlock, x, y);
-		else
-			behindChap = new Tile(TileType.Empty, x, y);
-
-		//updates Chap's position
-		board[y][x] = chap;
-		chap.setX(x);
-		chap.setY(y);
+//		int x = chap.getX();
+//		int y = chap.getY();
+//
+//		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
+//		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
+//
+//		//no move is being made
+//		if(x == chap.getX() && y == chap.getY())
+//			return Trinary.FALSE;
+//
+//		//Chap cannot move to the specified tile
+//		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
+//			return Trinary.FALSE;
+//
+//		if(board[y][x] instanceof Enemy)
+//			endGame();
+//
+//		if(board[y][x].type == TileType.Treasure)
+//			treasureLeft--;
+//		else if(board[y][x].type == TileType.Key1)
+//			chap.addKey(TileType.Key1);
+//		else if(board[y][x].type == TileType.Key2)
+//			chap.addKey(TileType.Key2);
+//		else if(board[y][x].type == TileType.Key3)
+//			chap.addKey(TileType.Key3);
+//		else if(board[y][x].type == TileType.Key4)
+//			chap.addKey(TileType.Key4);
+//		else if(board[y][x].type == TileType.Door1)
+//			chap.removeKey(TileType.Key1);
+//		else if(board[y][x].type == TileType.Door2)
+//			chap.removeKey(TileType.Key2);
+//		else if(board[y][x].type == TileType.Door3)
+//			chap.removeKey(TileType.Key3);
+//		else if(board[y][x].type == TileType.Door4)
+//			chap.removeKey(TileType.Key4);
+//		else if(board[y][x].type == TileType.Info)
+//			helpAlert(true);
+//
+//		//remove Chap from the board
+//		board[chap.getY()][chap.getX()] = behindChap;
+//
+//		if(board[y][x].type == TileType.Exit)
+//			return Trinary.DONE;
+//
+//		//update the tile behind Chap
+//		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)
+//			behindChap = board[y][x];
+//		else if(board[y][x].type == TileType.ExitLock)
+//			behindChap = new Tile(TileType.ExitUnlock, x, y);
+//		else
+//			behindChap = new Tile(TileType.Empty, x, y);
+//
+//		//updates Chap's position
+//		board[y][x] = chap;
+//		chap.setX(x);
+//		chap.setY(y);
 
 		return Trinary.TRUE;
 	}
@@ -315,7 +325,7 @@ public class Maze implements Runnable {
 	 * Gets this game's board.
 	 * @return the board
 	 */
-	public Tile[][] getBoard() {
+	public GenericTile[][] getBoard() {
 		return board;
 	}
 
@@ -324,7 +334,9 @@ public class Maze implements Runnable {
 	 * @return Chap
 	 */
 	public Chap getChap(){
-		return chap;
+		//TODO Fix chap
+		return null;
+//		return chap;
 	}
 
 	/**
@@ -352,10 +364,11 @@ public class Maze implements Runnable {
 	public void updateVariables(int timeLeft) {
 		//updates Chap and treasureLeft
 		treasureLeft = 0;
-		for(Tile[] t: board)
-			for(Tile tile : t)
-				if(tile.type == TileType.Treasure)
-					treasureLeft++;
+		for(GenericTile[] t: board)
+			for(GenericTile tile : t)
+				//todo: if tile instanceof treasuretile?
+//				if(tile.type == TileType.Treasure)
+//					treasureLeft++;
 
 		//updates time left
 		timeStarted = System.currentTimeMillis();
@@ -403,24 +416,24 @@ public class Maze implements Runnable {
 	 * Sets a tile on the board, given an x and y.
 	 * @param x The x-position of the tile
 	 * @param y The y-position of the time
-	 * @param tile The type of tile to set
+	 * @param type The type of tile to set
 	 */
-	public void setTile(int x, int y, TileType tile){
-		Tile t;
-		if(tile == TileType.Chap) {
-			Chap c = new Chap(x,y);
-			t = c;
-			chap = c;
-			behindChap = new Tile(TileType.Empty,x,y);
-		}
-		else if(tile == TileType.Enemy) {
-			Enemy e = new Enemy(x,y);
-			t = e;
-			enemies.add(e);
-			e.setTileBehindEnemy(new Tile(TileType.Empty,x,y));
-		}
-		else
-			t = new Tile(tile,x,y);
+	public void setTile(int x, int y, TileType type){
+		GenericTile t;
+//		if(tile == TileType.Chap) {
+//			Chap c = new Chap(x,y);
+//			t = c;
+//			chap = c;
+//			behindChap = new Tile(TileType.Empty,x,y);
+//		}
+//		else if(tile == TileType.Enemy) {
+//			Enemy e = new Enemy(x,y);
+//			t = e;
+//			enemies.add(e);
+//			e.setTileBehindEnemy(new Tile(TileType.Empty,x,y));
+//		}
+//		else
+			t = GenericTile.getTileSubclass(type,x,y);
 		if(x < board[0].length && y < board.length)
 			board[y][x] = t;
 	}
@@ -431,7 +444,7 @@ public class Maze implements Runnable {
 	 * @param y the y-coordinate of the tile
 	 * @return the tile
 	 */
-	public Tile getTile(int x, int y) {
+	public GenericTile getTile(int x, int y) {
 		return board[y][x];
 	}
 

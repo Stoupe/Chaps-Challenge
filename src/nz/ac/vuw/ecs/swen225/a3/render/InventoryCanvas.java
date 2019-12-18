@@ -43,7 +43,7 @@ public class InventoryCanvas extends Canvas {
      * Draws the inventory on the canvas.
      */
 	public void draw() {
-		List<TileType> keys = maze.getChap().getAllKeys();
+//		List<TileType> keys = maze.getChap().getAllKeys();
 		
 		
         //create a buffered image to reduce the flickering when drawing
@@ -53,11 +53,11 @@ public class InventoryCanvas extends Canvas {
         		
 		int x = 0, y = 0;
 			
-		//draw the inventory
-		for(TileType type : keys) {			
-			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image			
-			if(++x >= cols) { x = 0; y++; }			
-		}
+//		//draw the inventory
+//		for(TileType type : keys) {
+//			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image
+//			if(++x >= cols) { x = 0; y++; }
+//		}
 		
 		//fill the rest of the inventory with sand
 		while(y <= rows) {

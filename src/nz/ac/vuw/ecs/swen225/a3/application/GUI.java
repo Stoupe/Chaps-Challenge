@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
+import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvasNew;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
@@ -74,7 +75,7 @@ public class GUI {
 	/**
 	 * The canvas to draw the board on.
 	 */
-	private BoardCanvas boardCanvas;
+	private BoardCanvasNew boardCanvas;
 	/**
 	 * The panel for the board.
 	 */
@@ -260,7 +261,7 @@ public class GUI {
 		boardPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		leftPanel.add(boardPanel);
 
-		boardCanvas = new BoardCanvas(maze);
+		boardCanvas = new BoardCanvasNew(maze);
 		boardPanel.add(boardCanvas);
 
 		rightPanel = new JPanel();
@@ -332,7 +333,7 @@ public class GUI {
 	 * Gets the board canvas.
 	 * @return the board canvas
 	 */
-	public BoardCanvas getBoardCanvas() {
+	public BoardCanvasNew getBoardCanvas() {
 		return boardCanvas;
 	}
 

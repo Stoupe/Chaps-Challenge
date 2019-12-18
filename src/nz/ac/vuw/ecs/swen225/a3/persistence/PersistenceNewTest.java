@@ -1,6 +1,11 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
 
-import nz.ac.vuw.ecs.swen225.a3.application.Main;
+import nz.ac.vuw.ecs.swen225.a3.application.*;
+
+import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
+import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
+import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.*;
 
 import javax.json.*;
@@ -17,7 +22,7 @@ import java.util.List;
  * @author Liam Hide - 300451675
  * @author Henry Stoupe - 300432963
  */
-public class Persistence {
+public class PersistenceNewTest {
 
 
 	static HashMap<Character, TileType> lettersToTiles = new HashMap<Character, TileType>() {
@@ -128,6 +133,36 @@ public class Persistence {
 
 		System.out.println("Successfully created file");
 	}
+
+
+	static public boolean loadGame(JsonObject json) {
+
+		JsonObject GAME_INFO = json.getJsonObject("GameInfo");
+		JsonObject
+
+
+
+
+
+
+		return true;
+	}
+
+
+	private boolean loadTiles() {
+
+		return true;
+	}
+
+	private boolean loadChap() {
+		return true;
+	}
+
+
+
+
+
+
 
 
 	/**

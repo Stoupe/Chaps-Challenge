@@ -6,7 +6,7 @@ public class WallTile extends GenericTile {
 
     public WallTile(int x, int y) {
         super(x,y);
-        setIcon("Empty");
+        setIcon("Wall");
         setWalkable(false);
         setKillsPlayer(false);
     }
@@ -18,6 +18,16 @@ public class WallTile extends GenericTile {
      */
     @Override
     public boolean move(Point point) {
+        return false;
+    }
+
+    /**
+     * Logic for interacting with this tile
+     *
+     * @return
+     */
+    @Override
+    public boolean interact() {
         return false;
     }
 

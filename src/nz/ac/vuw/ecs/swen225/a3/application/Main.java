@@ -47,24 +47,30 @@ public class Main {
 	 */
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
+	static String level1 = "0404" +
+			"WEWE" +
+			"EWEW" +
+			"WEWE" +
+			"EWEW";
+
 	/**
 	 * The string representing the first level.
 	 */
-	static String level1 = "1414" +
-			"WWWWWWWWWWWXWW" +
-			"WTEEEEEEIWWLWW" +
-			"WEEECEEEEEET7W" +
-			"W5EEEEEEEEEEEW" +
-			"WWWWWWWW1W2WWW" +
-			"WTEEEEEEEWEEEW" +
-			"W6EEEEETEWTEEW" +
-			"WWWWWWWWWWETEW" +
-			"WEEETTEEE3EEEW" +
-			"WEEEEETEEWEEEW" +
-			"WEETEETEEWEEEW" +
-			"WEEETETEEWTETW" +
-			"WETEETEEEWTTTW" +
-			"WWWWWWWWWWWWWW";
+//	static String level1 = "1414" +
+//			"WWWWWWWWWWWXWW" +
+//			"WTEEEEEEIWWLWW" +
+//			"WEEECEEEEEET7W" +
+//			"W5EEEEEEEEEEEW" +
+//			"WWWWWWWW1W2WWW" +
+//			"WTEEEEEEEWEEEW" +
+//			"W6EEEEETEWTEEW" +
+//			"WWWWWWWWWWETEW" +
+//			"WEEETTEEE3EEEW" +
+//			"WEEEEETEEWEEEW" +
+//			"WEETEETEEWEEEW" +
+//			"WEEETETEEWTETW" +
+//			"WETEETEEEWTTTW" +
+//			"WWWWWWWWWWWWWW";
 
 	/**
 	 * The string representing the second level.
